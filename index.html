@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f7f4ef">
+<script id="theme-init">try{var t=localStorage.getItem("vatlas-theme");if(!t&&matchMedia("(prefers-color-scheme:dark)").matches)t="dark";if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <title>V-Atlas · 全球主播互动图鉴</title>
 <style>
 :root{--paper:#f7f4ef;--ink:#202a35;--muted:#687482;--line:#e4e0d8;--rose:#d98d9e;--plum:#755b82;--blue:#8caec1;--gold:#c8a96b;--card:#fffdfa;--shadow:0 18px 50px #24314012}
@@ -42,7 +43,7 @@
 #ad{scroll-margin-top:12px;padding-top:8px}
 html{scroll-behavior:smooth}
 
-.globe2{width:min(82%,340px);position:relative;z-index:1;filter:drop-shadow(0 16px 22px #43536c20);touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.globe2{width:min(82%,340px);position:relative;z-index:1;filter:drop-shadow(0 16px 22px #43536c20);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
 .globe2:active{cursor:grabbing}
 .globe2 path.c{fill:#d3dedb;stroke:#f8f5f0;stroke-width:.45;fill-rule:evenodd;cursor:pointer;transition:fill .15s}
 .globe2 path.c.has{fill:#b7cbc7}
@@ -61,6 +62,73 @@ html{scroll-behavior:smooth}
 .ad-item .ad-art{display:block;text-decoration:none;color:inherit;height:100%}
 .ad-zoom{position:absolute;top:8px;right:8px;z-index:2;border:0;border-radius:99px;padding:6px 10px;background:#ffffffd9;color:#4b3a52;font-size:11px;font-weight:700;cursor:pointer;box-shadow:0 3px 10px #0002}
 .ad-zoom:hover{background:#fff}
+
+/* ===== round 6 ===== */
+.fit{font-size:12px;color:var(--plum);margin:0 0 12px;line-height:1.65}
+.theme-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:15px;line-height:1;display:grid;place-items:center;padding:0}
+.theme-btn:hover{border-color:var(--plum)}
+.suggest-card{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:22px}
+.suggest-card p{margin:0 0 16px;font-size:13px;line-height:1.9;color:var(--muted)}
+.suggest-action{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.suggest-action .btn{text-decoration:none;display:inline-block}
+/* AD atmosphere */
+.feature{position:relative}
+.feature>*:not(.petals){position:relative;z-index:1}
+.petals{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.petal{position:absolute;top:-20px;border-radius:80% 0 80% 0;background:linear-gradient(135deg,#f8cdd8,#e996ab);opacity:0;animation:petalfall linear infinite}
+@keyframes petalfall{0%{transform:translate3d(0,0,0) rotate(0);opacity:0}8%{opacity:.75}90%{opacity:.6}100%{transform:translate3d(var(--dx),var(--fall,500px),0) rotate(var(--rot));opacity:0}}
+.ad-art img{transform-origin:50% 100%;animation:breathe 6.5s ease-in-out infinite}
+.ad-item:nth-child(2) .ad-art img{animation-delay:-2.2s}.ad-item:nth-child(3) .ad-art img{animation-delay:-4.4s}
+@keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.014)}}
+.ad-gallery{--mx:0;--my:0}
+.ad-item{transition:transform .3s ease-out;transform:translate(calc(var(--mx)*var(--d,8)*1px),calc(var(--my)*var(--d,8)*.55px))}
+.ad-item:nth-child(1){--d:10}.ad-item:nth-child(2){--d:5}.ad-item:nth-child(3){--d:14}
+.ad-item .ad-art{position:relative}
+.ad-item .ad-art:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.3) 50%,transparent 62%);transform:translateX(-130%);animation:shine 9s ease-in-out infinite}
+.ad-item:nth-child(2) .ad-art:after{animation-delay:3s}.ad-item:nth-child(3) .ad-art:after{animation-delay:6s}
+@keyframes shine{0%,68%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+/* mobile */
+@media(max-width:560px){.globe2{width:min(70%,340px)}.globe-shell{padding:26px 0}.theme-btn{width:30px;height:30px}.nav{align-items:center}}
+/* dark mode */
+[data-theme="dark"]{--paper:#14171d;--ink:#e8e6e3;--muted:#9aa4b0;--line:#2b313b;--rose:#e0a0b0;--plum:#b79cc9;--gold:#d4b87a;--card:#1b1f27;--shadow:0 18px 50px #00000066}
+[data-theme="dark"] body{background:radial-gradient(ellipse at 85% 0%,#2c2030 0,transparent 36%),var(--paper)}
+[data-theme="dark"] .btn{background:#e8e6e3;color:#14171d}
+[data-theme="dark"] .btn.secondary{background:var(--card);color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .globe-shell{background:linear-gradient(145deg,#241c28,#1a2229 70%,#262219);border-color:#2f2a33}
+[data-theme="dark"] .globe path{fill:#33424c;stroke:#14171d}[data-theme="dark"] .globe .ocean{fill:#1f2a33;stroke:#2f3d46}
+[data-theme="dark"] .pin:after,[data-theme="dark"] .globe-caption,[data-theme="dark"] .tiny{color:#8a949e}
+[data-theme="dark"] .filters select,[data-theme="dark"] .filters input,[data-theme="dark"] .chip{background:var(--card);color:var(--ink)}
+[data-theme="dark"] .chip{color:var(--muted)}[data-theme="dark"] .chip.active{background:var(--plum);border-color:var(--plum);color:#14171d}
+[data-theme="dark"] .avatar{background:linear-gradient(145deg,#3a2d40,#2a3a40);color:#d7c3de}
+[data-theme="dark"] .tag{background:#2a2230;color:#cdb6d6}
+[data-theme="dark"] .badge{background:#1f2f35;color:#9cc4d0}[data-theme="dark"] .badge.pin-top{background:#3a3320;color:#e0c685}
+[data-theme="dark"] .links a{color:var(--plum)}
+[data-theme="dark"] .listen,[data-theme="dark"] .ad-fab{color:#14171d!important}
+[data-theme="dark"] .feature{background:linear-gradient(120deg,#2a2029,#1b1e25 54%,#1b2529);border-color:#35303a}
+[data-theme="dark"] .feature p{color:var(--muted)}[data-theme="dark"] .quote{color:var(--plum)!important}
+[data-theme="dark"] .feature-meta span{border-color:#3a3340;background:#ffffff0d;color:var(--ink)}
+[data-theme="dark"] .art-area,[data-theme="dark"] .heart-area{background:#ffffff08;border-color:#35303a}
+[data-theme="dark"] .art-count{background:#2a2230;color:#cdb6d6}
+[data-theme="dark"] .ad-art{background:var(--card);border-color:#35303a}[data-theme="dark"] .ad-art img{background:#262029}[data-theme="dark"] .ad-art span{color:#cdb6d6}
+[data-theme="dark"] .ad-zoom{background:#14171dcc;color:#e8e6e3}
+[data-theme="dark"] .toast{background:#e8e6e3;color:#14171d}
+[data-theme="dark"] .petal{background:linear-gradient(135deg,#d99aae,#b4607d)}
+[data-theme="dark"] .globe2 path.c{fill:#33424c;stroke:#14171d}[data-theme="dark"] .globe2 path.c.has{fill:#4b6670}
+[data-theme="dark"] .globe2 path.c:hover{fill:#a86a7c}[data-theme="dark"] .globe2 path.c.sel{fill:#8b6aa0}
+[data-theme="dark"] .globe2 circle:not(.svgpin2){stroke:#2f3a44}
+[data-theme="dark"] #sea2 stop:first-child{stop-color:#1f2b33}[data-theme="dark"] #sea2 stop:last-child{stop-color:#13202a}
+[data-theme="dark"] #gGrat{stroke:#6f8fa0}[data-theme="dark"] #gPins{fill:#cfd6dd}[data-theme="dark"] .pinlabel{stroke:#14171dcc}
+[data-theme="dark"] .svgpin2{stroke:#14171d}
+
+.cap-m{display:none}
+@media(max-width:560px){
+ .topbar .brand .tiny{display:none}
+ .nav a{white-space:nowrap}
+ .nav a:nth-child(2),.nav a:nth-child(3){display:none}
+ .nav-ad{font-size:12px}
+ .globe-caption{left:16px;right:70px;bottom:14px;letter-spacing:.06em;line-height:1.7}
+ .cap-en{display:none}.cap-m{display:inline}
+}
 </style>
 <meta name="description" content="V-Atlas · 全球知名各类型主播互动图鉴：虚拟主播、电台区、音声 / ASMR 创作者，按地区与内容类型探索。">
 <meta property="og:title" content="V-Atlas · 全球主播互动图鉴">
@@ -75,13 +143,12 @@ html{scroll-behavior:smooth}
 <div class="credit">本网站由不知名AD家铃鹿制作</div>
 <header class="topbar">
   <div class="brand"><div class="brand-mark">✦</div><span>V·ATLAS</span><span class="tiny">GLOBAL VIRTUAL CREATOR INDEX</span></div>
-  <nav class="nav"><a class="nav-ad" href="#ad">♡ AD学姐特别收藏</a><a href="#explore">探索图鉴</a><a href="#about">关于项目</a></nav>
+  <nav class="nav"><a class="nav-ad" href="#ad">♡ AD学姐特别收藏</a><a href="#explore">探索图鉴</a><a href="#recommend">推荐主播</a><button class="theme-btn" id="themeBtn" type="button" aria-label="切换深色 / 浅色模式" title="切换深色 / 浅色模式">☾</button></nav>
 </header>
 <section class="hero">
  <div><div class="eyebrow">A WORLD OF VOICES · 2026</div><h1>每一种声音，<br><em>都值得被看见。</em></h1>
  <p>一份面向全球知名各类型主播的互动图鉴。这里既收录使用 Live2D、3D 模型的虚拟主播，也收录真人音声 / ASMR 与电台区创作者——从闲聊、唱歌到音声、陪伴系直播，探索屏幕另一端的多种魅力。</p>
- <div class="hero-actions"><a class="btn" href="#ad" style="text-decoration:none">♡ AD学姐特别收藏</a><a class="btn secondary" href="#explore" style="text-decoration:none">开始探索 ↗</a></div>
- <p class="tiny">离线优先 · 无在线 API · 本地图片内嵌 · 官方入口需联网打开</p></div>
+ <div class="hero-actions"><a class="btn" href="#ad" style="text-decoration:none">♡ AD学姐特别收藏</a><a class="btn secondary" href="#explore" style="text-decoration:none">开始探索 ↗</a></div></div>
  <div class="globe-shell" aria-label="交互式地球">
   <svg class="globe" id="globeOld" viewBox="0 0 360 360" role="img" aria-label="简化地球，点击区域可筛选国家">
    <defs><clipPath id="clip"><circle cx="180" cy="180" r="145"/></clipPath><linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e7f0ef"/><stop offset="1" stop-color="#b9d2d8"/></linearGradient></defs>
@@ -124,16 +191,16 @@ html{scroll-behavior:smooth}
    <g id="gPins" font-family="sans-serif" font-size="8.5" fill="#4d5560"></g>
   </svg>
   
-  <div class="globe-caption">DRAG TO ROTATE · CLICK A REGION · 拖动旋转，点击区域筛选</div>
+  <div class="globe-caption"><span class="cap-en">DRAG TO ROTATE · CLICK A REGION · </span>拖动旋转，点击区域筛选<span class="cap-m"><br>地球外的空白处可滑动翻页</span></div>
  </div>
 </section>
 <section class="section" id="ad">
- <div class="feature">
+ <div class="feature"><div class="petals" id="petals" aria-hidden="true"></div>
   <div class="feature-intro"><div class="eyebrow">EDITOR'S HEART · CN FEATURE</div><h2>AD学姐<br><span style="color:var(--plum)">特别收藏</span></h2>
    <div class="feature-meta"><span>中国 · 哔哩哔哩</span><span>电台 / 声音向内容</span><span>个人珍藏位</span></div>
    <p>有些声音不只是被听见，也会成为日常里温柔的陪伴。对喜爱 AD学姐的听众而言，她的魅力可以不止于某一场直播：也许是声音里恰到好处的亲近感，也许是闲谈时让人放松的节奏，又或是熟悉的直播氛围，让忙碌的一天有了一个可以停靠的角落。</p>
    <p class="quote">这段文字是站点作者的欣赏与感受表达，不是对主播性格或客观表现的权威定论。具体直播风格、作品与活动信息，请以她本人公开发布的内容为准。</p>
-   <div class="links"><a href="https://space.bilibili.com/197621852" target="_blank" rel="noopener noreferrer">AD学姐的哔哩哔哩主页 ↗</a><a href="#instructions">查看使用说明 ↓</a></div>
+   <div class="links"><a href="https://space.bilibili.com/197621852" target="_blank" rel="noopener noreferrer">AD学姐的哔哩哔哩主页 ↗</a></div>
   </div>
   <div class="art-area">
    <div class="art-head"><div><b>♡ AD学姐 · 立绘收藏</b><br><small>点击立绘跳转到她的作品 · 右上角可放大查看</small></div><span class="art-count">已收录 3 张</span></div>
@@ -148,30 +215,15 @@ html{scroll-behavior:smooth}
 <section class="section" id="explore">
  <div class="section-head"><div><div class="eyebrow">DISCOVER · 01</div><h2>全球主播图鉴</h2><p>按地区、内容类型和关键词探索。卡片介绍以公开频道及官方资料为优先。</p></div><div class="count" id="count" aria-live="polite"></div></div>
  <div class="filters"><select id="country" aria-label="按地区筛选"><option value="">全部地区</option></select><select id="genre"><option value="">全部内容类型</option><option value="闲聊">闲聊</option><option value="唱歌">唱歌</option><option value="游戏">游戏</option><option value="音声/陪伴">音声/陪伴</option><option value="音乐">音乐</option></select><input id="search" placeholder="搜索主播、团体或关键词…" aria-label="搜索主播"></div>
- <div class="chips" id="quick"><button class="chip active" data-filter="">全部收录</button><button class="chip" data-filter="唱歌">歌势 / 音乐</button><button class="chip" data-filter="音声/陪伴">音声 / 陪伴氛围</button><button class="chip" data-filter="闲聊">杂谈 / 闲聊</button><button class="chip" data-platform="bilibili">哔哩哔哩</button><button class="chip" data-real="1">非 VTuber · 真人 / 声优</button></div>
+ <div class="chips" id="quick"><button class="chip active" data-filter="">全部收录</button><button class="chip" data-filter="唱歌">歌势 / 音乐</button><button class="chip" data-filter="音声/陪伴">音声 / 陪伴氛围</button><button class="chip" data-filter="闲聊">杂谈 / 闲聊</button><button class="chip" data-platform="bilibili">哔哩哔哩</button><button class="chip" data-tag="asmr">助眠 / ASMR</button><button class="chip" data-tag="radio">电台区</button><button class="chip" data-real="1">非 VTuber · 真人 / 声优</button></div>
  <div style="height:18px"></div><div class="cards" id="cards"></div><div style="text-align:center;margin-top:20px"><button class="btn secondary" id="more" type="button" hidden>显示更多</button></div>
  <p class="note">资料说明：主播国籍、所在地与活动范围不一定相同；本页“地区”主要用于图鉴筛选和文化/语言背景整理，不代表法律国籍。页面不显示“正在直播”等实时状态。官方链接通常需要网络连接。哔哩哔哩电台区没有官方统一的排名，本页中文区条目按知名度与公开资料挑选；粉丝数、直播状态等动态数据不在页内显示，请以各自主页为准。</p>
 </section>
-<section class="section" id="about">
- <div class="section-head"><div><div class="eyebrow">FIELD NOTES · 02</div><h2>图鉴使用原则</h2><p>让收藏既有温度，也尽量可靠。</p></div></div>
- <div class="about-grid">
-  <div class="about-card"><div style="font-size:24px">◎</div><b>公开资料优先</b><p>主播名称、所属团体与频道入口优先引用官方主页或官方频道。未确认的信息不作确定陈述，状态信息不实时抓取。</p></div>
-  <div class="about-card"><div style="font-size:24px">♡</div><b>欣赏与事实分开</b><p>个人感受采用“我觉得 / 对听众而言 / 可能让人感到”等表达；可核实资料与主观评价分开呈现。</p></div>
-  <div class="about-card"><div style="font-size:24px">⌘</div><b>离线优先设计</b><p>样式、筛选、搜索、地球点击、心形图片墙与放大查看均在本地运行。外部官方频道链接需要联网，图片已嵌入文件。</p></div>
- </div>
+<section class="section" id="recommend">
+ <div class="section-head"><div><div class="eyebrow">SUGGEST · 04</div><h2>推荐主播</h2><p>想看到哪位主播被收录？欢迎告诉我。</p></div></div>
+ <div class="suggest-card"><p>请附上：<b>主播名字</b>、<b>主页链接</b>，以及一句话介绍（可选）。我会核对资料后再收录，不保证每一位都能加入。</p><div class="suggest-action" id="suggestAction"></div></div>
 </section>
-<section class="section" id="instructions">
- <div class="section-head"><div><div class="eyebrow">QUICK START · 03</div><h2>本地使用说明</h2></div></div>
- <div class="about-card">
-  <ol style="padding-left:22px;line-height:2;color:#596775;font-size:13px">
-   <li>在“AD学姐特别收藏”区域浏览已内嵌的立绘，点击图片放大，点击遮罩、右上角 × 或按 Esc 关闭。</li>
-   <li>点击地球上的国家区域，或使用筛选器、快捷标签（歌势 / 音声 / 哔哩哔哩 / 非 VTuber）按条件筛选；搜索框支持名称与简介关键词。</li>
-   <li>筛选与图片查看均可离线使用；卡片里的主页、频道入口是外部链接，需要联网才能打开。</li>
-  </ol>
-  <p class="note"><b>关于 AD学姐的资料：</b>她的哔哩哔哩主页链接已加入；页面只展示已嵌入的 3 张立绘。若想增加图片或代表作品介绍，把素材发给我即可继续补充。</p>
- </div>
-</section>
-<footer class="footer"><b>V·ATLAS</b> — A locally-run virtual creator field guide.<br>本项目为个人图鉴模板，不代表主播本人或所属机构。人物资料与官方入口可能变化，使用前请以对应官方页面为准。<br><span class="tiny">设计关键词：纸感底色、柔和珠光、编辑式排版、低饱和配色；不依赖在线字体、脚本库或地图服务。</span></footer>
+<footer class="footer"><b>V·ATLAS</b> — A locally-run virtual creator field guide.<br>本项目为个人图鉴模板，不代表主播本人或所属机构。人物资料与官方入口可能变化，使用前请以对应官方页面为准。</footer>
 </div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="立绘大图"><div class="modal-inner"><button class="close" id="closeModal" aria-label="关闭">×</button><img id="modalImg" alt="立绘放大图"><div class="modal-caption" id="modalCaption"></div></div></div><div class="toast" id="toast"></div>
 <script>
@@ -210,9 +262,11 @@ const creators=[
  {"name": "The Liza", "area": "俄罗斯", "group": "YouTube · ASMR", "type": ["音声/陪伴"], "emoji": "🌷", "real": true, "desc": "HypeAuditor 俄罗斯区 ASMR 频道榜单中的头部频道之一，订阅约 130 万。", "links": [["YouTube 频道", "https://www.youtube.com/@thelizaa"]], "id": "thelizaa", "listen": "https://www.youtube.com/@thelizaa/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
  {"name": "asmr zeitgeist", "area": "德国", "group": "YouTube · ASMR", "type": ["音声/陪伴"], "emoji": "🎙", "real": true, "desc": "德国的 ASMR 创作者，在 YouTube 上订阅规模居前列（约 310 万，YTStats 榜单）。", "links": [["YouTube 频道", "https://www.youtube.com/@asmrzeitgeist"]], "id": "asmrzeitgeist", "listen": "https://www.youtube.com/@asmrzeitgeist/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
  {"name": "FredsVoice ASMR", "area": "英国", "group": "YouTube · ASMR", "type": ["音声/陪伴"], "emoji": "☕", "real": true, "desc": "英国的 ASMR 创作者，在 YouTube 上订阅规模居前列（约 210 万，YTStats 榜单）。", "links": [["YouTube 频道", "https://www.youtube.com/@FredsVoice"]], "id": "fredsvoice", "listen": "https://www.youtube.com/@FredsVoice/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
+ {"name": "Moonlight Cottage ASMR", "area": "法国", "group": "YouTube · ASMR", "type": ["音声/陪伴"], "emoji": "🌙", "real": true, "id": "moonlightcottageasmr", "desc": "法国 ASMR 频道，在 YouTube 上订阅规模居前列（约 160 万，YTStats 榜单）。", "links": [["YouTube 频道", "https://www.youtube.com/@MoonlightCottageASMR"]], "listen": "https://www.youtube.com/@MoonlightCottageASMR/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
+ {"name": "ASMR Twix", "area": "日本", "group": "YouTube · ASMR", "type": ["音声/陪伴"], "emoji": "🍬", "real": true, "id": "asmrtwix", "desc": "日本 ASMR 频道，在 YTStats 的 ASMR 榜单中有收录（约 92 万订阅）。", "links": [["YouTube 频道", "https://www.youtube.com/@asmrtwix"]], "listen": "https://www.youtube.com/@asmrtwix/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
+ {"name": "Diskarteng Basic", "area": "菲律宾", "group": "YouTube · ASMR", "type": ["音声/陪伴"], "emoji": "🔧", "real": true, "id": "diskartengbasic", "desc": "HypeAuditor 菲律宾区 ASMR 类别榜单中排名第一的频道，订阅约 39.5 万。", "links": [["YouTube 频道", "https://www.youtube.com/@diskartengbasic"]], "listen": "https://www.youtube.com/@diskartengbasic/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
  {"name": "星街彗星", "area": "日本", "group": "hololive production", "type": ["唱歌", "音乐", "游戏"], "emoji": "✦", "desc": "以歌唱与音乐活动为重要特色的虚拟艺人，可从官方频道了解音乐作品、直播与相关企划。", "links": [["YouTube 官方频道", "https://www.youtube.com/@HoshimachiSuisei"]], "id": "hoshimachisuisei", "listen": "https://www.youtube.com/@HoshimachiSuisei/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
  {"name": "宝钟玛琳", "area": "日本", "group": "hololive production", "type": ["闲聊", "唱歌", "游戏"], "emoji": "⚓", "desc": "以鲜明的海盗船长设定、杂谈与多样娱乐内容受到关注；具体内容以官方频道发布为准。", "links": [["YouTube 官方频道", "https://www.youtube.com/@HoushouMarine"]], "id": "houshoumarine", "listen": "https://www.youtube.com/@HoushouMarine/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
- {"name": "Kizuna AI 绊爱", "area": "日本", "group": "Kizuna AI", "type": ["唱歌", "音乐", "闲聊"], "emoji": "♡", "desc": "早期推动 VTuber 文化走向大众的重要代表之一。官方简介记载她于 2016 年开始活动，并以音乐作为近年的活动轴心。", "links": [["官方网站", "https://kizunaai.com/"], ["YouTube 官方频道", "https://www.youtube.com/@AIChannel"]], "id": "aichannel", "listen": "https://www.youtube.com/@AIChannel/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
  {"name": "Gawr Gura", "area": "美国", "group": "hololive English", "type": ["唱歌", "游戏", "闲聊"], "emoji": "≈", "desc": "以鲨鱼主题形象和英语内容广为人知。这里仅作为全球虚拟主播文化的代表案例，不推断当前直播状态。", "links": [["hololive English 官方站", "https://hololive.hololivepro.com/en/"]], "id": "gawr-gura"},
  {"name": "Ironmouse", "area": "美国", "group": "Independent VTuber", "type": ["唱歌", "闲聊", "音声/陪伴"], "emoji": "☾", "desc": "英语虚拟主播，以高能量互动、歌唱与娱乐直播为人熟知。平台与活动信息可能变化，请查看本人公开频道。", "links": [["Twitch 频道", "https://www.twitch.tv/ironmouse"], ["YouTube 频道", "https://www.youtube.com/@ironmouse"]], "id": "ironmouse", "listen": "https://www.youtube.com/@ironmouse/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
  {"name": "Kobo Kanaeru", "area": "印度尼西亚", "group": "hololive Indonesia", "type": ["唱歌", "游戏", "闲聊"], "emoji": "☂", "desc": "hololive Indonesia 所属虚拟主播，可从官方频道探索印尼语内容、歌唱与游戏直播。", "links": [["YouTube 官方频道", "https://www.youtube.com/@KoboKanaeru"]], "id": "kobokanaeru", "listen": "https://www.youtube.com/@KoboKanaeru/videos?view=0&sort=p&flow=grid", "listenTip": "打开频道视频（按热门排序）"},
@@ -222,15 +276,18 @@ const creators=[
 ];
 const $=id=>document.getElementById(id);
 const cards=$('cards'),country=$('country'),genre=$('genre'),search=$('search'),count=$('count');
-const state={platform:'',real:false};
+const state={platform:'',real:false,tag:''};
 const SEA=['印度尼西亚','新加坡','泰国','越南','菲律宾','马来西亚'];
-const ORDER=['中国','日本','韩国','东南亚','印度尼西亚','新加坡','俄罗斯','美国','加拿大','英国','德国'];
+const ORDER=['中国','日本','韩国','东南亚','印度尼西亚','新加坡','俄罗斯','美国','加拿大','英国','法国','德国','菲律宾'];
 let limit=12;const PAGE=12;
 (function(){const have=new Set(creators.map(x=>x.area));if(creators.some(x=>SEA.includes(x.area)))have.add('东南亚');
  const list=ORDER.filter(a=>have.has(a)).concat([...have].filter(a=>!ORDER.includes(a)));
  country.innerHTML='<option value="">全部地区</option>'+list.map(a=>`<option value="${a}">${a==='东南亚'?'东南亚（含印尼 / 新加坡等）':a}</option>`).join('')})();
 const inArea=(x,c)=>!c||(c==='东南亚'?SEA.includes(x.area):x.area===c);
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const FIT={asmr:'睡前放松、助眠','唱歌':'想听歌、听翻唱','音乐':'听原创与音乐作品','游戏':'一边看游戏一边放松','闲聊':'听人聊天、当背景陪伴','音声/陪伴':'安静时被陪伴'};
+const tagsOf=x=>{const t=[];if(x.real||/ASMR|助眠/i.test(x.group+x.desc))t.push('asmr');if(/电台区/.test(x.group))t.push('radio');return t};
+const fitOf=x=>{const a=[];if(tagsOf(x).includes('asmr'))a.push(FIT.asmr);x.type.forEach(t=>{if(t==='音声/陪伴'&&a.length)return;const f=FIT[t];if(f&&!a.includes(f))a.push(f)});return a.slice(0,3).join(' · ')};
 const isBili=x=>x.links.some(a=>/bilibili\.com/.test(a[1]));
 function loadAvatars(){
   document.querySelectorAll('.avatar[data-av]:not([data-done])').forEach(el=>{
@@ -246,12 +303,12 @@ function render(){
   setTimeout(()=>{loadAvatars();if(window.globeSelect)window.globeSelect(country.value)},0);
   const c=country.value,g=genre.value,q=search.value.trim().toLowerCase();
   const arr=creators.filter(x=>
-    inArea(x,c)&&(!g||x.type.includes(g))&&(!state.real||x.real)&&(state.platform!=='bilibili'||isBili(x))&&
+    inArea(x,c)&&(!g||x.type.includes(g))&&(!state.real||x.real)&&(!state.tag||tagsOf(x).includes(state.tag))&&(state.platform!=='bilibili'||isBili(x))&&
     (!q||(x.name+' '+x.group+' '+x.desc+' '+x.type.join(' ')).toLowerCase().includes(q)));
   count.textContent=`共 ${arr.length} 位 / 全部 ${creators.length} 位`;
   const more=$('more');more.hidden=arr.length<=limit;more.textContent=`显示更多（还有 ${Math.max(0,arr.length-limit)} 位）`;const shown=arr.slice(0,limit);
   if(!arr.length){more.hidden=true;cards.innerHTML='<div class="empty" style="grid-column:1/-1">没有找到匹配条目。试试清空筛选条件。</div>';return}
-  cards.innerHTML=shown.map(x=>`<article class="creator"><div class="creator-top"><div class="avatar" data-av="${esc(x.id)}" aria-hidden="true"><span>${esc(x.emoji)}</span></div><div class="ct-name"><h3>${esc(x.name)}</h3><div class="sub">${esc(x.area)} · ${esc(x.group)}</div></div>${x.listen?`<a class="listen" href="${esc(x.listen)}" target="_blank" rel="noopener noreferrer" title="${esc(x.listenTip||'试听')}" aria-label="试听 ${esc(x.name)} 的作品">▶ 试听</a>`:''}</div><div>${x.pinned?'<span class="badge pin-top">★ 特别收藏</span>':''}${x.real?'<span class="badge">非 VTuber</span>':''}${x.type.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div><p>${esc(x.desc)}</p><div class="links">${x.links.map(a=>`<a href="${esc(a[1])}" target="_blank" rel="noopener noreferrer">${esc(a[0])} ↗</a>`).join('')}</div>${x.note?`<div class="tiny" style="margin-top:10px">${esc(x.note)}</div>`:''}</article>`).join('');
+  cards.innerHTML=shown.map(x=>`<article class="creator"><div class="creator-top"><div class="avatar" data-av="${esc(x.id)}" aria-hidden="true"><span>${esc(x.emoji)}</span></div><div class="ct-name"><h3>${esc(x.name)}</h3><div class="sub">${esc(x.area)} · ${esc(x.group)}</div></div>${x.listen?`<a class="listen" href="${esc(x.listen)}" target="_blank" rel="noopener noreferrer" title="${esc(x.listenTip||'试听')}" aria-label="试听 ${esc(x.name)} 的作品">▶ 试听</a>`:''}</div><div>${x.pinned?'<span class="badge pin-top">★ 特别收藏</span>':''}${x.real?'<span class="badge">非 VTuber</span>':''}${x.type.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div><p>${esc(x.desc)}</p>${fitOf(x)?`<div class="fit">适合场景：${esc(fitOf(x))}</div>`:''}<div class="links">${x.links.map(a=>`<a href="${esc(a[1])}" target="_blank" rel="noopener noreferrer">${esc(a[0])} ↗</a>`).join('')}</div>${x.note?`<div class="tiny" style="margin-top:10px">${esc(x.note)}</div>`:''}</article>`).join('');
 }
 [country,genre].forEach(el=>el.addEventListener('change',()=>{limit=PAGE;syncChips();render()}));search.addEventListener('input',()=>{limit=PAGE;render()});
 $('more').addEventListener('click',()=>{limit+=PAGE;render()});
@@ -261,7 +318,8 @@ function syncChips(){
     let on;
     if(b.dataset.platform!==undefined) on=state.platform===b.dataset.platform;
     else if(b.dataset.real!==undefined) on=state.real;
-    else on=genre.value===(b.dataset.filter||'')&&!state.platform&&!state.real;
+    else if(b.dataset.tag!==undefined) on=state.tag===b.dataset.tag;
+    else on=genre.value===(b.dataset.filter||'')&&!state.platform&&!state.real&&!state.tag;
     b.classList.toggle('active',on);
     b.setAttribute('aria-pressed',on);
   });
@@ -269,7 +327,8 @@ function syncChips(){
 chips.forEach(b=>b.addEventListener('click',()=>{
   if(b.dataset.platform!==undefined){state.platform=state.platform===b.dataset.platform?'':b.dataset.platform}
   else if(b.dataset.real!==undefined){state.real=!state.real}
-  else{genre.value=b.dataset.filter||'';state.platform='';state.real=false}
+  else if(b.dataset.tag!==undefined){state.tag=state.tag===b.dataset.tag?'':b.dataset.tag}
+  else{genre.value=b.dataset.filter||'';state.platform='';state.real=false;state.tag=''}
   limit=PAGE;syncChips();render();
 }));
 document.querySelectorAll('[data-country]').forEach(p=>p.addEventListener('click',()=>{country.value=p.dataset.country;limit=PAGE;if(country.value!==p.dataset.country){country.value='';toast('该地区暂未收录')}render();$('explore').scrollIntoView({behavior:'smooth'})}));
@@ -292,10 +351,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
   if(!svg)return;
   const NS='http://www.w3.org/2000/svg',R=145,CX=180,CY=180,RAD=Math.PI/180;
   const SOURCES=['data/countries-110m.json','https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json','https://fastly.jsdelivr.net/npm/world-atlas@2/countries-110m.json','https://cdn.jsdmirror.com/npm/world-atlas@2/countries-110m.json','https://unpkg.com/world-atlas@2/countries-110m.json'];
-  const REG={'156':'中国','158':'中国','392':'日本','410':'韩国','840':'美国','124':'加拿大','643':'俄罗斯','826':'英国','276':'德国','360':'印度尼西亚'};
+  const REG={'156':'中国','158':'中国','392':'日本','410':'韩国','840':'美国','124':'加拿大','643':'俄罗斯','826':'英国','276':'德国','250':'法国','360':'印度尼西亚'};
   ['764','704','458','608','116','418','104','096','626'].forEach(i=>REG[i]='东南亚');
-  const PINS=[['中国',104,35,0,13,'middle'],['日本',138,37.5,7,3,'start'],['韩国',127.8,36.4,-7,3,'end'],['俄罗斯',95,62,0,-8,'middle'],['美国',-98,39,0,-8,'middle'],['加拿大',-100,58,0,-8,'middle'],['英国',-2.5,54,-7,3,'end'],['德国',10.4,51.2,7,3,'start'],['东南亚',104,14,-8,3,'end'],['印度尼西亚',113,-2,8,10,'start'],['新加坡',103.8,1.35,8,3,'start']];
-  const CEN={'中国':[104,35],'日本':[138,37],'韩国':[128,36],'俄罗斯':[95,58],'美国':[-98,39],'加拿大':[-100,56],'英国':[-2,54],'德国':[10,51],'东南亚':[106,12],'印度尼西亚':[113,-2],'新加坡':[104,2]};
+  const PINS=[['中国',104,35,0,13,'middle'],['日本',138,37.5,7,3,'start'],['韩国',127.8,36.4,-7,3,'end'],['俄罗斯',95,62,0,-8,'middle'],['美国',-98,39,0,-8,'middle'],['加拿大',-100,58,0,-8,'middle'],['英国',-2.5,54,-7,3,'end'],['德国',10.4,51.2,7,3,'start'],['法国',2.3,46.6,-7,3,'end'],['东南亚',104,14,-8,3,'end'],['印度尼西亚',113,-2,8,10,'start'],['新加坡',103.8,1.35,8,3,'start']];
+  const CEN={'中国':[104,35],'日本':[138,37],'韩国':[128,36],'俄罗斯':[95,58],'美国':[-98,39],'加拿大':[-100,56],'英国':[-2,54],'德国':[10,51],'法国':[2,46.5],'东南亚':[106,12],'印度尼西亚':[113,-2],'新加坡':[104,2]};
   const rot={lon:105,lat:25};let countries=[],pinEls=[],sel='',dirty=true,hover=false,dragging=false,moved=false,auto=!matchMedia('(prefers-reduced-motion:reduce)').matches;
   const vec=(lo,la)=>{lo*=RAD;la*=RAD;return[Math.cos(la)*Math.cos(lo),Math.cos(la)*Math.sin(lo),Math.sin(la)]};
   const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
@@ -381,11 +440,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
     });
     old&&(old.style.display='none');svg.style.display='block';mark();draw();
     svg.addEventListener('pointerenter',()=>hover=true);svg.addEventListener('pointerleave',()=>hover=false);
-    let sx=0,sy=0,sl=0,sa=0;
-    svg.addEventListener('pointerdown',e=>{if(e.button>0)return;dragging=true;moved=false;fly=null;sx=e.clientX;sy=e.clientY;sl=rot.lon;sa=rot.lat});
-    window.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>4)moved=true;
-      if(!moved)return;const k=1/(R*svg.getBoundingClientRect().width/360)/RAD;rot.lon=sl-dx*k;rot.lat=Math.max(-75,Math.min(75,sa+dy*k));dirty=true});
-    window.addEventListener('pointerup',()=>{dragging=false});
+    let sx=0,sy=0,sl=0,sa=0,vl=0,va=0,lastMove=0;
+    const TH=()=>matchMedia('(pointer:coarse)').matches?9:4;
+    svg.addEventListener('pointerdown',e=>{if(e.button>0)return;dragging=true;moved=false;fly=null;vl=va=0;sx=e.clientX;sy=e.clientY;sl=rot.lon;sa=rot.lat;lastMove=performance.now()});
+    window.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>TH())moved=true;
+      if(!moved)return;const k=1/(R*svg.getBoundingClientRect().width/360)/RAD;const nl=sl-dx*k,na=Math.max(-75,Math.min(75,sa+dy*k));
+      vl=(nl-rot.lon)*0.6+vl*0.4;va=(na-rot.lat)*0.6+va*0.4;rot.lon=nl;rot.lat=na;lastMove=performance.now();dirty=true});
+    const endDrag=()=>{dragging=false;if(performance.now()-lastMove>80){vl=va=0}};
+    window.addEventListener('pointerup',endDrag);window.addEventListener('pointercancel',endDrag);
     svg.addEventListener('click',e=>{
       if(moved){moved=false;return}
       const pin=e.target.closest&&e.target.closest('.svgpin2');
@@ -396,12 +458,36 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.con
     if(country.value)window.globeSelect(country.value);
     (function loop(){
       if(auto&&vis&&!hover&&!dragging&&!fly&&!document.hidden&&!sel){rot.lon+=0.05;dirty=true}
+      if(!dragging&&(Math.abs(vl)>0.02||Math.abs(va)>0.02)){rot.lon+=vl;rot.lat=Math.max(-75,Math.min(75,rot.lat+va));vl*=0.94;va*=0.94;dirty=true}
       if(dirty){dirty=false;draw()}
       requestAnimationFrame(loop);
     })();
   });
   let vis=true;
 })();
+
+
+// ===== theme toggle =====
+(function(){const b=$('themeBtn'),root=document.documentElement;if(!b)return;
+  const paint=()=>{const d=root.getAttribute('data-theme')==='dark';b.textContent=d?'☀':'☾';b.setAttribute('aria-pressed',d);const m=document.querySelector('meta[name=theme-color]');if(m)m.content=d?'#14171d':'#f7f4ef'};
+  b.addEventListener('click',()=>{const d=root.getAttribute('data-theme')==='dark';if(d)root.removeAttribute('data-theme');else root.setAttribute('data-theme','dark');try{localStorage.setItem('vatlas-theme',d?'light':'dark')}catch(e){}paint()});
+  paint();})();
+// ===== AD section atmosphere: petals + mouse parallax =====
+(function(){const feat=document.querySelector('#ad .feature'),box=document.getElementById('petals'),area=document.querySelector('#ad .art-area'),gal=document.querySelector('#ad .ad-gallery');
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  if(feat&&box){const n=innerWidth<560?9:16;box.style.setProperty('--fall',(feat.offsetHeight+60)+'px');
+    for(let i=0;i<n;i++){const p=document.createElement('i');p.className='petal';const sz=8+Math.random()*9;
+      p.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz*.75}px;--dx:${(Math.random()*160-80).toFixed(0)}px;--rot:${(Math.random()*540-270).toFixed(0)}deg;animation-duration:${(9+Math.random()*9).toFixed(1)}s;animation-delay:${(-Math.random()*16).toFixed(1)}s`;box.appendChild(p)}}
+  if(area&&gal){area.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const r=area.getBoundingClientRect();
+      gal.style.setProperty('--mx',(((e.clientX-r.left)/r.width)*2-1).toFixed(3));gal.style.setProperty('--my',(((e.clientY-r.top)/r.height)*2-1).toFixed(3))});
+    area.addEventListener('pointerleave',()=>{gal.style.setProperty('--mx',0);gal.style.setProperty('--my',0)})}})();
+// ===== recommend entry =====
+const SUGGEST={email:'',form:''};   // 拿到网站专用邮箱或问卷链接后，填在这里
+(function(){const box=$('suggestAction');if(!box)return;const parts=[];
+  if(SUGGEST.form)parts.push(`<a class="btn" href="${esc(SUGGEST.form)}" target="_blank" rel="noopener noreferrer">填写推荐表单 ↗</a>`);
+  if(SUGGEST.email)parts.push(`<a class="btn${SUGGEST.form?' secondary':''}" href="mailto:${esc(SUGGEST.email)}?subject=${encodeURIComponent('推荐主播 · V-Atlas')}&body=${encodeURIComponent('主播名字：\n主页链接：\n一句话介绍（可选）：\n')}">✉ 发邮件推荐</a><button class="btn secondary" id="copyMail" type="button">复制邮箱地址</button><span class="tiny">${esc(SUGGEST.email)}</span>`);
+  box.innerHTML=parts.length?parts.join(''):'<span class="tiny">推荐入口筹备中，稍后开放。</span>';
+  const cm=$('copyMail');if(cm)cm.addEventListener('click',()=>{(navigator.clipboard?navigator.clipboard.writeText(SUGGEST.email):Promise.reject()).then(()=>toast('邮箱地址已复制')).catch(()=>toast('请手动复制：'+SUGGEST.email))})})();
 
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
 </script>
